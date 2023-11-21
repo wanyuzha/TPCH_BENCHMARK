@@ -4,7 +4,7 @@ if __name__ == '__main__':
 
     spark = SparkSession.builder.appName("SF1").getOrCreate()
 
-    df = spark.read.parquet("hdfs://rcnfs:8020/user/Wanyu/tpch/sf1/lineitem.parquet")
+    df = spark.read.parquet("hdfs://rcnfs:8020/tpch/sf1/lineitem.parquet")
 
     #df.printSchema()
 
