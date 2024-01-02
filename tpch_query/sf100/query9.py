@@ -2,7 +2,8 @@ from pyspark.sql import SparkSession
 
 if __name__ == '__main__':
 
-    spark = SparkSession.builder.appName("Q9-SF100").getOrCreate()
+    spark = SparkSession.builder.appName("Q9-SF100-limit").config("spark.sql.files.maxPartitionBytes", 104857600).getOrCreate()
+    spark.conf.set("spark.sql.shuffle.partitions", "800")  
 
     lineitem = spark.read.parquet("hdfs://rcnfs:8020/tpch/sf100/lineitem/")
     lineitem.createOrReplaceTempView("lineitem")
