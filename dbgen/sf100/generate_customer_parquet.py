@@ -5,21 +5,25 @@ import os
 
 from pyspark.sql.types import StructType, StructField, LongType, DoubleType, StringType, DateType, CharType
 
-tbl_file = 'nation.tbl'
-parquet_dir = '../parquet/sf100/nation/'
+tbl_file = 'customer.tbl'
+parquet_dir = '../parquet/sf100/customer/'
 
 directory = os.path.dirname(parquet_dir)
 if not os.path.exists(directory):
     os.makedirs(directory)
 
 schema = {
-    'n_nationkey': 'int64',
-    'n_name': 'str',
-    'n_regionkey': 'int64',
-    'n_comment': 'str'
+    'c_custkey': 'int64',
+    'c_name': 'str',
+    'c_address': 'str',
+    'c_nationkey': 'int64',
+    'c_phone': 'str',
+    'c_acctbal': 'float64',
+    'c_mktsegment': 'str',
+    'c_comment': 'str'
 }
 
-names = ['n_nationkey', 'n_name', 'n_regionkey', 'n_comment']
+names = ['c_custkey', 'c_name', 'c_address', 'c_nationkey', 'c_phone', 'c_acctbal', 'c_mktsegment', 'c_comment']
 
 chunk_size = 10000000 
 chunks = pd.read_csv(tbl_file, sep='|', engine='python', header=None, names=names, dtype=schema, usecols=range(len(names)), chunksize=chunk_size)
