@@ -2,7 +2,7 @@ from pyspark.sql import SparkSession
 
 if __name__ == '__main__':
 
-    spark = SparkSession.builder.appName("Q9-SF100-limit").appName("Q9-SF100-300p-3times").config("spark.sql.files.maxPartitionBytes", 26214400) \
+    spark = SparkSession.builder.appName("Q9-SF100-P40").config("spark.sql.files.maxPartitionBytes", 26214400) \
     .config("spark.default.parallelism", "300")     \
     .config("spark.sql.shuffle.partitions", "300").getOrCreate()
     spark.conf.set("spark.sql.shuffle.partitions", "300")  
@@ -25,7 +25,7 @@ if __name__ == '__main__':
     supplier = spark.read.parquet("hdfs://rcnfs:8020/tpch/sf100/supplier/")
     supplier.createOrReplaceTempView("supplier")
 
-    for i in range(3):
+    for i in range(10):
         result = spark.sql("""SELECT
         nation,
         o_year,
